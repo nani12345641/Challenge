@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sports Car Model Design Dashboard</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background: #111;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    background: #222;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #f04e23;
+  }
+  main {
+    display: flex;
+    flex: 1;
+    padding: 1rem 2rem;
+    gap: 2rem;
+  }
+  .car-preview {
+    flex: 1.5;
+    background: #222;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .car-preview img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #f04e23;
+  }
+  .car-options {
+    flex: 1;
+    background: #222;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .option-group {
+    display: flex;
+    flex-direction: column;
+  }
+  label {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #f04e23;
+  }
+  select, input[type=range] {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: none;
+    background: #333;
+    color: #eee;
+    font-size: 1rem;
+  }
+  .stats {
+    background: #111;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    color: #f04e23;
+  }
+  footer {
+    background: #222;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #777;
+  }
+</style>
+</head>
+<body>
+<header>
+  Sports Car Design Dashboard
+</header>
+
+<main>
+  <section class="car-preview">
+    <img id="car-image" src="https://cdn.pixabay.com/photo/2017/01/06/15/52/car-1950370_1280.png" alt="Sports Car" />
+    <div class="stats">
+      <p><strong>Model:</strong> <span id="stat-model">Coupe</span></p>
+      <p><strong>Color:</strong> <span id="stat-color">Red</span></p>
+      <p><strong>Top Speed:</strong> <span id="stat-speed">220 mph</span></p>
+      <p><strong>Acceleration (0-60 mph):</strong> <span id="stat-acceleration">3.5 s</span></p>
+      <p><strong>Horsepower:</strong> <span id="stat-hp">450 hp</span></p>
+    </div>
+  </section>
+
+  <section class="car-options">
+    <div class="option-group">
+      <label for="model-select">Choose Model</label>
+      <select id="model-select">
+        <option value="coupe">Coupe</option>
+        <option value="convertible">Convertible</option>
+        <option value="roadster">Roadster</option>
+        <option value="suv">SUV</option>
+      </select>
+    </div>
+
+    <div class="option-group">
+      <label for="color-select">Choose Color</label>
+      <select id="color-select">
+        <option value="red">Red</option>
+        <option value="black">Black</option>
+        <option value="white">White</option>
+        <option value="blue">Blue</option>
+        <option value="yellow">Yellow</option>
+      </select>
+    </div>
+
+    <div class="option-group">
+      <label for="speed-range">Top Speed (mph)</label>
+      <input type="range" id="speed-range" min="150" max="300" step="5" value="220" />
+    </div>
+
+    <div class="option-group">
+      <label for="acceleration-range">Acceleration 0-60 mph (seconds)</label>
+      <input type="range" id="acceleration-range" min="2" max="6" step="0.1" value="3.5" />
+    </div>
+
+    <div class="option-group">
+      <label for="hp-range">Horsepower (hp)</label>
+      <input type="range" id="hp-range" min="300" max="700" step="10" value="450" />
+    </div>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Sports Car Design Dashboard
+</footer>
+
+<script>
+  const carImage = document.getElementById('car-image');
+  const modelSelect = document.getElementById('model-select');
+  const colorSelect = document.getElementById('color-select');
+  const speedRange = document.getElementById('speed-range');
+  const accelerationRange = document.getElementById('acceleration-range');
+  const hpRange = document.getElementById('hp-range');
+
+  const statModel = document.getElementById('stat-model');
+  const statColor = document.getElementById('stat-color');
+  const statSpeed = document.getElementById('stat-speed');
+  const statAcceleration = document.getElementById('stat-acceleration');
+  const statHP = document.getElementById('stat-hp');
+
+  const carImages = {
+    coupe: "https://cdn.pixabay.com/photo/2017/01/06/15/52/car-1950370_1280.png",
+    convertible: "https://cdn.pixabay.com/photo/2013/07/12/19/20/car-152065_1280.png",
+    roadster: "https://cdn.pixabay.com/photo/2013/07/12/19/20/car-152038_1280.png",
+    suv: "https://cdn.pixabay.com/photo/2014/04/05/11/51/car-315601_1280.png"
+  };
+
+  const colors = {
+    red: '#f44336',
+    black: '#212121',
+    white: '#ececec',
+    blue: '#2196f3',
+    yellow: '#ffeb3b'
+  };
+
+  function updateDashboard() {
+    const model = modelSelect.value;
+    const color = colorSelect.value;
+    const speed = speedRange.value;
+    const acceleration = accelerationRange.value;
+    const hp = hpRange.value;
+
+    // Update car image based on model
+    carImage.src = carImages[model];
+    
+    // Tint car image with selected color (simple overlay effect)
+    carImage.style.filter = `drop-shadow(0 0 10px ${colors[color]})`;
+
+    // Update stats text
+    statModel.textContent = model.charAt(0).toUpperCase() + model.slice(1);
+    statColor.textContent = color.charAt(0).toUpperCase() + color.slice(1);
+    statSpeed.textContent = speed + ' mph';
+    statAcceleration.textContent = acceleration + ' s';
+    statHP.textContent = hp + ' hp';
+  }
+
+  // Event listeners for inputs
+  modelSelect.addEventListener('change', updateDashboard);
+  colorSelect.addEventListener('change', updateDashboard);
+  speedRange.addEventListener('input', updateDashboard);
+  accelerationRange.addEventListener('input', updateDashboard);
+  hpRange.addEventListener('input', updateDashboard);
+
+  // Initial update on page load
+  updateDashboard();
+</script>
+
+</body>
+</html>
